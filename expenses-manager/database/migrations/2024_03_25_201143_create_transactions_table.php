@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->string('ShopName', 100);
+            $table->string('ShopName');
             $table->decimal('MoneySpent', 10, 2);
             $table->decimal('MoneyDeposited', 10, 2);
             $table->decimal('BankBalance', 10, 2);
