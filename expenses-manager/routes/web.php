@@ -16,5 +16,5 @@ Route::get('/transaction/create', [TransactionController::class, 'create'])->nam
 Route::post('/transaction/create', [TransactionController::class, 'store'])->name('transaction.store');
 
 Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
-Route::put('/transaction/edit/{id}', [TransactionController::class, 'update'])->name('transaction.update');
+Route::put('/transaction/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
 Route::get('/transaction/destroy/{id}', [TransactionController::class, 'destroy'])->name('transaction.destroy');
