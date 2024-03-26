@@ -12,7 +12,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('/index');
+        $data = Transaction::all();
+        return view('/index', ['data' => $data]);
 
     }
 
@@ -64,33 +65,52 @@ class TransactionController extends Controller
         //
     }
 
-        public function import()
+    public function import()
     {
         return view('/import/index');
     }
 
     public function processImport(Request $request)
     {
-        $request->validate([
-            'csvFile' => 'required|mimes:csv'
-        ]);
-        $file = $request->file('csvFile');
+    $request->validate([
+        'csvFile' => 'required|mimes:csv'
+    ]);
+    $file = $request->file('csvFile');
 
-    // Check if a file was uploaded
     if ($file) {
-        $originalFileName = $file->getClientOriginalName(); // Get the original filename
-        $extension = $file->getClientOriginalExtension(); // Get the file extension
-        $fileNameWithoutExtension = pathinfo($originalFileName, PATHINFO_FILENAME); // Get the filename without extension
-        
-        // Construct the new filename with "imported" inserted before the extension
+        $originalFileName = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        $fileNameWithoutExtension = pathinfo($originalFileName, PATHINFO_FILENAME); 
         $newFileName = $fileNameWithoutExtension . '.imported.' . $extension;
         
         $storagePath = storage_path('app/public/csv');
         $file->move($storagePath, $newFileName);
+        // if (Transaction::count() > 0) {
+        //     Transaction::truncate();
+        //     return redirect()->route('import')->with('message', 'All transactions deleted.');
+        // } else {
+        //     return redirect()->route('import')->with('message', 'Not deleted');
+        // }
+        $this->insertTransactions($storagePath . '/' . $newFileName);
         return redirect()->route('import')->with('message', $newFileName . " uploaded and processed successfully.");
+
     } else {
-        // If no file was uploaded, return with an error message
-        return redirect()->route('import')->with('error', 'No file uploaded.');
+        return redirect()->route('import')->with('error', 'Cannot upload the file.');
     }
+    }
+
+    private function insertTransactions($file)
+    {
+        $file = fopen($file, 'r');
+        $data = fgetcsv($file);
+        while (($data = fgetcsv($file)) !== false) {
+            $date = date('Y-m-d', strtotime($data[0]));
+            Transaction::create([
+                'date' => $date,
+                'ShopName' => $data[1],
+                'MoneySpent' => $data[2],
+            ]);
+        }
+        fclose($file);
     }
 }

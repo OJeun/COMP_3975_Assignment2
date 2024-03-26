@@ -1,6 +1,6 @@
-{{-- @extends('layouts.app') --}}
+@extends('layouts.master')
 
-{{-- @section('content') --}}
+@section('content')
 @if (session('message'))
     <div class="alert alert-success">
         {{ session('message') }}
@@ -23,4 +23,4 @@
             </div>
         </div>
     </div>
-{{-- @endsection --}}
+@endsection
