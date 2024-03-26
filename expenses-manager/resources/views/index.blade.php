@@ -1,9 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
-    @if ($message = Session::get('success'))
+    @if (session('message'))
         <div class="alert alert-success">
-            <p>{{ $message }}</p>
+            <p>{{ session('message') }}</p>
         </div>
     @endif
 
