@@ -15,3 +15,6 @@ Route::post('/import/index', [TransactionController::class, 'processImport'])->n
 Route::get('/transaction/create', [TransactionController::class, 'create'])->name('transaction.create');
 Route::post('/transaction/create', [TransactionController::class, 'store'])->name('transaction.store');
 
+Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
+Route::put('/transaction/edit/{id}', [TransactionController::class, 'update'])->name('transaction.update');
+Route::get('/transaction/destroy/{id}', [TransactionController::class, 'destroy'])->name('transaction.destroy');

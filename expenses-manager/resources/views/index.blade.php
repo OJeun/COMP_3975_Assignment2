@@ -31,6 +31,11 @@
                     <td>{{ $item->date }}</td>
                     <td>{{ $item->ShopName }}</td>
                     <td>{{ $item->MoneySpent }}</td>
+                    <td>           
+                        <a class="btn btn-primary btn-sm" href="{{ route('transaction.edit',$item->id) }}">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="{{ route('transaction.destroy',$item->id) }}">Del</a>
+                    </td>
+                    
                 </tr>
             @endforeach
         </tbody>
