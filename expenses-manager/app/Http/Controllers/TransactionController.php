@@ -12,7 +12,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        return view('/index');
+
     }
 
     /**
@@ -61,5 +62,35 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
+    }
+
+        public function import()
+    {
+        return view('/import/index');
+    }
+
+    public function processImport(Request $request)
+    {
+        $request->validate([
+            'csvFile' => 'required|mimes:csv'
+        ]);
+        $file = $request->file('csvFile');
+
+    // Check if a file was uploaded
+    if ($file) {
+        $originalFileName = $file->getClientOriginalName(); // Get the original filename
+        $extension = $file->getClientOriginalExtension(); // Get the file extension
+        $fileNameWithoutExtension = pathinfo($originalFileName, PATHINFO_FILENAME); // Get the filename without extension
+        
+        // Construct the new filename with "imported" inserted before the extension
+        $newFileName = $fileNameWithoutExtension . '.imported.' . $extension;
+        
+        $storagePath = storage_path('app/public/csv');
+        $file->move($storagePath, $newFileName);
+        return redirect()->route('import')->with('message', $newFileName . " uploaded and processed successfully.");
+    } else {
+        // If no file was uploaded, return with an error message
+        return redirect()->route('import')->with('error', 'No file uploaded.');
+    }
     }
 }

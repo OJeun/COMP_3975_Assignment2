@@ -1,18 +1,16 @@
 <?php
-
-use App\Http\Controllers\ImportController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [LoginController::class, 'login'])->name('login');
-Route::post('/login', [LoginController::class, 'processLogin'])->name('processLogin');
+Route::get('/', [UserController::class, 'login'])->name('login');
+Route::post('/login', [UserController::class, 'processLogin'])->name('processLogin');
 
-Route::get('/index', [IndexController::class, 'index'])->name('index');
 
-Route::get('/import/index', [ImportController::class, 'import'])->name('import');
-Route::post('/import/index', [ImportController::class, 'processImport'])->name('processImport');
+Route::get('/index', [TransactionController::class, 'index'])->name('index');
+Route::get('/import/index', [TransactionController::class, 'import'])->name('import');
+Route::post('/import/index', [TransactionController::class, 'processImport'])->name('processImport');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
