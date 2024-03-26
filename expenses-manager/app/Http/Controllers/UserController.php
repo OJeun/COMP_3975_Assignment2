@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -68,28 +69,38 @@ class UserController extends Controller
         return view('/user/login');
     }
 
+
     public function processLogin(Request $request) {
-     {
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+    
+        $userExists = User::where('email', $request->email)->exists();
+    
+        if (!$userExists) {
+            return back()->withErrors([
+                'email' => 'Cannot find the email address.',
+            ]);
+        }
+    
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $user = Auth::user();
 
-    $userExists = User::where('email', $request->email)->exists();
-
-    if (!$userExists) {
+            // Store the user data in the session
+            session(['user' => $user]);
+            return redirect()->route('index');
+        } else {
+            return redirect()->route('login')->with('message', 'Invalid credentials.');
+        }
+    
         return back()->withErrors([
-            'email' => 'Cannot find the email address.',
+            'email' => 'No user found with this email and password.',
         ]);
     }
 
-    if (Auth::attempt($request->only('email', 'password'))) {
-        return redirect()->intended('index');
-    }
-
-    return back()->withErrors([
-        'email' => 'No user found with this email and password.',
-    ]);
-    }
+    public function manageUsers() {
+        $users = User::all();
+        return view('admin.users', ['users' => $users]);
     }
 }

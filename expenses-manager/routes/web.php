@@ -18,3 +18,6 @@ Route::post('/transaction/create', [TransactionController::class, 'store'])->nam
 Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
 Route::put('/transaction/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
 Route::get('/transaction/destroy/{id}', [TransactionController::class, 'destroy'])->name('transaction.destroy');
+
+// Route::get('/admin/bucket', [IndexController::class, 'bucket'])->name('bucket');
+Route::get('/admin/bucket', [UserController::class, 'manageUsers'])->name('manageUsers');
