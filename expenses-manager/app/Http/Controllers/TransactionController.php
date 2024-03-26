@@ -13,7 +13,7 @@ class TransactionController extends Controller
     public function index()
     {
         $data = Transaction::all();
-        return view('/index', ['data' => $data]);
+        return view('/index', ['transactions' => $data]);
 
     }
 
