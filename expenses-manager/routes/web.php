@@ -12,3 +12,6 @@ Route::get('/index', [TransactionController::class, 'index'])->name('index');
 Route::get('/import/index', [TransactionController::class, 'import'])->name('import');
 Route::post('/import/index', [TransactionController::class, 'processImport'])->name('processImport');
 
+Route::get('/transaction/create', [TransactionController::class, 'create'])->name('transaction.create');
+Route::post('/transaction/create', [TransactionController::class, 'store'])->name('transaction.store');
+

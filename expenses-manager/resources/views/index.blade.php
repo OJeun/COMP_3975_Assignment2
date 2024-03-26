@@ -1,8 +1,22 @@
 @extends('layouts.master')
 
 @section('content')
-    <a href="{{ route('import') }}" class="btn btn-primary">Import CSV</a>
-    <h1>Transactions</h1>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="pull-right">
+                <a class="btn btn-success btn-sm" href="{{ route('import') }}" class="btn btn-primary">Import CSV</a>
+                <a class="btn btn-success btn-sm" href="{{ route('transaction.create') }}">
+                    Create New
+                </a>
+            </div>
+        </div>
+    </div>
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
@@ -12,7 +26,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($transactions as $item) 
+            @foreach ($transactions as $item)
                 <tr>
                     <td>{{ $item->date }}</td>
                     <td>{{ $item->ShopName }}</td>

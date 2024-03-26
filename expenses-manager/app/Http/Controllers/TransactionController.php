@@ -22,7 +22,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        return view('transaction.create');
     }
 
     /**
@@ -30,7 +30,19 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'date' => 'required',
+            'ShopName' => 'required',
+            'MoneySpent' => 'required'
+        ]);
+
+        Transaction::create([
+            'date' => $request->date,
+            'ShopName' => $request->ShopName,
+            'MoneySpent' => $request->MoneySpent
+        ]);
+
+        return redirect()->route('index')->with('message', 'Transaction added successfully.');
     }
 
     /**
