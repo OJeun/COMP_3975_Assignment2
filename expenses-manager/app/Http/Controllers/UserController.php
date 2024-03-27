@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('/index');
     }
 
     /**
@@ -64,7 +64,7 @@ class UserController extends Controller
         User::whereIn('email', $approvedUserEmails)->update(['isApproved' => true]);
     
         // Redirect back with a success message
-        return redirect()->route('manageUsers')->with('message', 'Users updated.');
+        return redirect()->back()->with('message', 'Users updated successfully.');
     }
 
 

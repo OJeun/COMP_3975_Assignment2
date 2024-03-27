@@ -20,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                  
+
                     @foreach ($users as $user)
                         {{-- <h1>{{ $user->isApproved }}</h1> --}}
                         @if (!$user->isAdmin)
@@ -38,6 +38,7 @@
             </table>
 
             <button type="submit" class="btn btn-primary">Save</button>
+            <a href="{{ route('index') }}" class="btn btn-secondary">Back</a>
         </form>
     </div>
 @endsection
