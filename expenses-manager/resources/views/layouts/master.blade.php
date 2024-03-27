@@ -12,17 +12,32 @@
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 </head>
 <body>
-    @if(session('user') && session('user')->isAdmin)
-        <nav>
-            <a href="{{ route('manageUsers') }}">Manage User</a>
-            {{-- <a href="{{ route('managebucket') }}">Manage Bucket</a> --}}
-        </nav>
-    @endif
 
-    <header>
-        <p> Aric Or (A01337169) </p>
-        <p> Julie Oh (A01335411) </p>
-    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                @if(session('user') && session('user')->isAdmin)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('manageUsers') }}">Manage users</a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- <a class="nav-link" href="{{ route('managebucket') }}">Manage buckets</a> --}}
+                    </li>
+                @endif
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    {{-- <a class="nav-link" href="{{ route('logout') }}">Logout</a> --}}
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
 
     <main>
         @yield('content')

@@ -52,10 +52,10 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
-    {
-        //
+    public function update(Request $request) {
+
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -103,4 +103,21 @@ class UserController extends Controller
         $users = User::all();
         return view('admin.users', ['users' => $users]);
     }
+
+    public function updateUsers(Request $request) {
+    // Get the IDs of the users who are approved
+    $approvedUserIds = $request->input('isApproved', []);
+
+    // Loop over all the user IDs
+    foreach ($request->input('users', []) as $email) {
+        // Find the user
+        $user = User::find($email);
+
+        // Update the user's isApproved status
+        $user->isApproved = in_array($email, $approvedUserIds);
+
+        // Save the user
+        $user->save();
+    }
+}
 }

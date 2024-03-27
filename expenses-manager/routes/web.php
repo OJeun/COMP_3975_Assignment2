@@ -20,4 +20,5 @@ Route::put('/transaction/update/{id}', [TransactionController::class, 'update'])
 Route::get('/transaction/destroy/{id}', [TransactionController::class, 'destroy'])->name('transaction.destroy');
 
 // Route::get('/admin/bucket', [IndexController::class, 'bucket'])->name('bucket');
-Route::get('/admin/bucket', [UserController::class, 'manageUsers'])->name('manageUsers');
+Route::get('/admin/users', [UserController::class, 'manageUsers'])->name('manageUsers');
+Route::post('/admin/users', [UserController::class, 'updateUsers'])->name('updateUsers');
