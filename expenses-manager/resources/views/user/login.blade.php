@@ -25,8 +25,12 @@
 
         <div>
             <button type="submit">Login</button>
+            
         </div>
     </form>
+    <div>
+        <a href="{{ route('signup') }}">Sign Up</a>
+    </div>
 </body>
 
 </html>

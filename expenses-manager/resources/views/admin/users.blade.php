@@ -2,12 +2,16 @@
 
 @section('content')
     <div class="container">
+
+        @if (session('message'))
+            <div class="alert alert-success">
+                <p>{{ session('message') }}</p>
+            </div>
+        @endif
         <h1>Users</h1>
 
         <form action="{{ route('updateUsers') }}" method="POST">
             @csrf
-            @method('PUT')
-
             <table class="table">
                 <thead>
                     <tr>
@@ -16,7 +20,9 @@
                     </tr>
                 </thead>
                 <tbody>
+                  
                     @foreach ($users as $user)
+                        {{-- <h1>{{ $user->isApproved }}</h1> --}}
                         @if (!$user->isAdmin)
                             <tr>
                                 <td>{{ $user->email }}</td>

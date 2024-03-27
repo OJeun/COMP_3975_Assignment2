@@ -52,8 +52,19 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request) {
-
+    public function update(Request $request)
+    {
+        // Get the emails of the users who are approved
+        $approvedUserEmails = $request->input('isApproved', []);
+    
+        // Update the isApproved status of all users to false
+        User::query()->update(['isApproved' => false]);
+    
+        // Update the isApproved status of approved users to true
+        User::whereIn('email', $approvedUserEmails)->update(['isApproved' => true]);
+    
+        // Redirect back with a success message
+        return redirect()->route('manageUsers')->with('message', 'Users updated.');
     }
 
 
@@ -65,25 +76,27 @@ class UserController extends Controller
         //
     }
 
-    public function login() {
+    public function login()
+    {
         return view('/user/login');
     }
 
 
-    public function processLogin(Request $request) {
+    public function processLogin(Request $request)
+    {
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
-    
+
         $userExists = User::where('email', $request->email)->exists();
-    
+
         if (!$userExists) {
             return back()->withErrors([
                 'email' => 'Cannot find the email address.',
             ]);
         }
-    
+
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
 
@@ -93,31 +106,46 @@ class UserController extends Controller
         } else {
             return redirect()->route('login')->with('message', 'Invalid credentials.');
         }
-    
+
         return back()->withErrors([
             'email' => 'No user found with this email and password.',
         ]);
     }
 
-    public function manageUsers() {
+    public function manageUsers()
+    {
         $users = User::all();
         return view('admin.users', ['users' => $users]);
     }
 
-    public function updateUsers(Request $request) {
-    // Get the IDs of the users who are approved
-    $approvedUserIds = $request->input('isApproved', []);
-
-    // Loop over all the user IDs
-    foreach ($request->input('users', []) as $email) {
-        // Find the user
-        $user = User::find($email);
-
-        // Update the user's isApproved status
-        $user->isApproved = in_array($email, $approvedUserIds);
-
-        // Save the user
-        $user->save();
+    public function updateUsers(Request $request)
+    {
     }
-}
+
+    public function logout()
+    {
+        Auth::logout();
+        session()->forget('user');
+        return redirect()->route('login');
+    }
+
+    public function signup()
+    {
+        return view('user.signup');
+    }
+
+    public function processSignup(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $user = new User();
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return redirect()->route('login');
+    }
 }

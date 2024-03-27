@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserController::class, 'login'])->name('login');
 Route::post('/login', [UserController::class, 'processLogin'])->name('processLogin');
+Route::get('/signup', [UserController::class, 'signup'])->name('signup');
+Route::post('/signup', [UserController::class, 'processSignup'])->name('processSignup');
 
 
 Route::get('/index', [TransactionController::class, 'index'])->name('index');
@@ -21,4 +23,4 @@ Route::get('/transaction/destroy/{id}', [TransactionController::class, 'destroy'
 
 // Route::get('/admin/bucket', [IndexController::class, 'bucket'])->name('bucket');
 Route::get('/admin/users', [UserController::class, 'manageUsers'])->name('manageUsers');
-Route::post('/admin/users', [UserController::class, 'updateUsers'])->name('updateUsers');
+Route::post('/admin/users', [UserController::class, 'update'])->name('updateUsers');
