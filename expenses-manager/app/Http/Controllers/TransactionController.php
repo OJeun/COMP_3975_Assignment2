@@ -53,6 +53,11 @@ class TransactionController extends Controller
 
     }
 
+    public function report()
+    {
+        return view('transaction.report');
+    }
+
 
     /**
      * Show the form for editing the specified resource.

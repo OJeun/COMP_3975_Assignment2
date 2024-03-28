@@ -23,6 +23,7 @@
                 @if(session('user') && session('user')->isAdmin)
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('manageUsers') }}">Manage users</a>
+                        <a class="nav-link" href="{{ route('bucket') }}">Manage Bucket</a>
                     </li>
                     <li class="nav-item">
                         {{-- <a class="nav-link" href="{{ route('managebucket') }}">Manage buckets</a> --}}

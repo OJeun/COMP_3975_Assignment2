@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BucketController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -22,6 +23,11 @@ Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->na
 Route::put('/transaction/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
 Route::get('/transaction/destroy/{id}', [TransactionController::class, 'destroy'])->name('transaction.destroy');
 
-// Route::get('/admin/bucket', [IndexController::class, 'bucket'])->name('bucket');
+Route::get('/transaction/report', [TransactionController::class, 'report'])->name('transaction.report');
+
+Route::get('/admin/bucket', [BucketController::class, 'index'])->name('bucket');
+Route::get('/admin/bucket/create', [BucketController::class, 'create'])->name('bucket.create');
+Route::get('/admin/bucket/edit/{id}', [BucketController::class, 'edit'])->name('bucket.edit');
+Route::put('/admin/bucket/update/{id}', [BucketController::class, 'update'])->name('bucket.update');
 Route::get('/admin/users', [UserController::class, 'manageUsers'])->name('manageUsers');
 Route::post('/admin/users', [UserController::class, 'update'])->name('updateUsers');

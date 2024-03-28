@@ -14,6 +14,9 @@
                 <a class="btn btn-success btn-sm" href="{{ route('transaction.create') }}">
                     Create New
                 </a>
+                <a class="btn btn-success btn-sm" href="{{ route('transaction.report') }}">
+                    Report
+                </a>
             </div>
         </div>
     </div>
