@@ -24,11 +24,11 @@
                         <td>{{ $bucket->shopName }}</td>
                         <td>
                             <a href="{{ route('bucket.edit', $bucket->id) }}" class="btn btn-primary">Update</a>
-                            {{-- <form action="{{ route('bucket.destroy', $bucket->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form> --}}
+                            <form action="{{ route('bucket.destroy', $bucket->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

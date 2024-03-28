@@ -108,8 +108,20 @@ class BucketController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bucket $bucket)
+    public function destroy($id)
     {
-        //
+        // Find the bucket by its ID
+        $bucket = Bucket::find($id);
+    
+        // Check if the bucket exists
+        if (!$bucket) {
+            return redirect()->route('bucket')->with('error', 'Bucket not found.');
+        }
+    
+        // Delete the bucket
+        $bucket->delete();
+    
+        // Redirect back to the index page with a success message
+        return redirect()->route('bucket')->with('success', 'Bucket deleted successfully.');
     }
 }

@@ -29,5 +29,7 @@ Route::get('/admin/bucket', [BucketController::class, 'index'])->name('bucket');
 Route::get('/admin/bucket/create', [BucketController::class, 'create'])->name('bucket.create');
 Route::get('/admin/bucket/edit/{id}', [BucketController::class, 'edit'])->name('bucket.edit');
 Route::put('/admin/bucket/update/{id}', [BucketController::class, 'update'])->name('bucket.update');
+Route::delete('/admin/bucket/destroy/{id}', [BucketController::class, 'destroy'])->name('bucket.destroy');
+
 Route::get('/admin/users', [UserController::class, 'manageUsers'])->name('manageUsers');
 Route::post('/admin/users', [UserController::class, 'update'])->name('updateUsers');
