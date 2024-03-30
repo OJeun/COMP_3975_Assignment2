@@ -8,7 +8,7 @@
     @endif
     <div class="container">
         <button onclick="window.location='{{ route('bucket.create') }}'" class="btn btn-primary">Create</button>
-
+        <h2>Buckets</h2>
         <table class="table">
             <thead>
                 <tr>
@@ -35,5 +35,23 @@
             </tbody>
         </table>
         <a href="{{ route('index') }}" class="btn btn-secondary">Back</a>
+    </div>
+
+    <div class="container">
+        <h2>Uncategorized Shops</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Shop Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($uncategorizedShops as $shop)
+                    <tr>
+                        <td>{{ $shop->shopName }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection

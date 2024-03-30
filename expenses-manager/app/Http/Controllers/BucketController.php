@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bucket;
+use App\Models\UncategorizedShop;
 use Illuminate\Http\Request;
 
 class BucketController extends Controller
@@ -12,7 +13,9 @@ class BucketController extends Controller
      */
     public function index()
     {
-        return view('admin.bucket', ['buckets' => Bucket::all()]);   
+        $buckets = Bucket::all();
+        $uncategorizedShops = UncategorizedShop::all();
+        return view('admin.bucket', ['buckets' => $buckets, 'uncategorizedShops' => $uncategorizedShops]);
     }
 
     /**
@@ -46,21 +49,21 @@ class BucketController extends Controller
             ['category' => 'Bank', 'shopName' => 'O.D.P'],
             ['category' => 'Bank', 'shopName' => 'MONTHLY ACCOUNT FEE'],
         ];
-        
+
         foreach ($bucketsData as $data) {
             $shopName = $data['shopName'];
-    
+
             $existingBucket = Bucket::where('shopName', $shopName)->first();
-    
+
             // If the shop name doesn't exist, create a new bucket
             if (!$existingBucket) {
                 Bucket::create($data);
-            } 
+            }
         }
 
         return redirect()->route('bucket');
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -75,7 +78,6 @@ class BucketController extends Controller
      */
     public function show(Bucket $bucket)
     {
-        
     }
 
     /**
@@ -96,12 +98,12 @@ class BucketController extends Controller
             'category' => 'required',
             'shopName' => 'required',
         ]);
-    
+
         $bucket = Bucket::find($id);
         $bucket->category = $request->category;
         $bucket->shopName = $request->shopName;
         $bucket->save();
-    
+
         return redirect()->route('bucket')->with('message', 'Bucket updated successfully.');
     }
 
@@ -112,15 +114,15 @@ class BucketController extends Controller
     {
         // Find the bucket by its ID
         $bucket = Bucket::find($id);
-    
+
         // Check if the bucket exists
         if (!$bucket) {
             return redirect()->route('bucket')->with('error', 'Bucket not found.');
         }
-    
+
         // Delete the bucket
         $bucket->delete();
-    
+
         // Redirect back to the index page with a success message
         return redirect()->route('bucket')->with('success', 'Bucket deleted successfully.');
     }
