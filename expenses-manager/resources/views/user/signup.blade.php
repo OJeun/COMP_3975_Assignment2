@@ -6,82 +6,65 @@
     <link href="{{ asset('/bootstrap.min.css') }}" rel="stylesheet">
 
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
         .container {
-            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        .card {
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            padding: 20px;
+            border-radius: 0.25rem;
         }
 
-        .card-header {
-            background-color: #007bff;
-            color: white;
+        form div {
+            margin-bottom: 10px;
         }
 
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
+        button {
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
+    <div class="container">
+        <h1>Sign Up</h1>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Sign Up') }}</div>
+        <form method="POST" action="{{ route('processSignup') }}">
+            @csrf
+            <div>
+                <label for="email">Email:</label>
+                <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email">
+            </div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('processSignup') }}">
-                        @csrf
+            <div>
+                <label for="password">Password:</label>
+                <input id="password" type="password" name="password" required autocomplete="new-password">
+            </div>
 
-                        <div class="form-group row">
-                            <label for="email"
-                                class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
+            <div>
+                <button type="submit">Sign Up</button>
+            </div>
+        </form>
+        <div>
+            <a href="{{ route('login') }}">Log In</a>
+        </div>
+    </div>
+</body>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email"
-                                    class="form-control @error('email') is-invalid @enderror" name="email"
-                                    value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password"
-                                class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Sign Up') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+</html>
