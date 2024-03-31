@@ -14,6 +14,10 @@ class BucketController extends Controller
     public function index()
     {
         $buckets = Bucket::all();
+
+        $uncategorizedShop = new UncategorizedShop;
+        $uncategorizedShop->insertUncategorizedShops();
+        $uncategorizedShop->removeSimilarShops();
         $uncategorizedShops = UncategorizedShop::all();
         return view('admin.bucket', ['buckets' => $buckets, 'uncategorizedShops' => $uncategorizedShops]);
     }

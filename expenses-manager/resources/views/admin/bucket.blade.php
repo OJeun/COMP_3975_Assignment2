@@ -6,9 +6,13 @@
             {{ session('success') }}
         </div>
     @endif
+
     <div class="container">
-        <button onclick="window.location='{{ route('bucket.create') }}'" class="btn btn-primary">Create</button>
-        <h2>Buckets</h2>
+        <br>
+        <div class="d-flex align-items-center">
+            <h2 style="margin-right: 1em;">Buckets</h2>
+            <button onclick="window.location='{{ route('bucket.create') }}'" class="btn btn-primary">Create</button>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -36,7 +40,7 @@
         </table>
         <a href="{{ route('index') }}" class="btn btn-secondary">Back</a>
     </div>
-
+    <br>
     <div class="container">
         <h2>Uncategorized Shops</h2>
         <table class="table">
@@ -48,7 +52,7 @@
             <tbody>
                 @foreach ($uncategorizedShops as $shop)
                     <tr>
-                        <td>{{ $shop->shopName }}</td>
+                        <td>{{ $shop->shop_name }}</td>
                     </tr>
                 @endforeach
             </tbody>
