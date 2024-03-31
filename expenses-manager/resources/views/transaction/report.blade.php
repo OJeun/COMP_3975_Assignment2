@@ -2,14 +2,16 @@
 <!-- Form for inputting the year -->
 
 @section('content')
-    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
         <form action="{{ route('showYearlyReport') }}" method="GET">
             @csrf
             <label for="year">Enter Year:</label>
             <input type="text" id="year" name="year">
             <button type="submit">Show Report</button>
         </form>
+        <a href="{{ route('index') }}" class="btn btn-primary pl-5 mt-3">Back</a>
     </div>
+
 
     {{-- @dump($transactions) --}}
     @if (isset($transactions) && isset($year))
