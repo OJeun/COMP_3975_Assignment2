@@ -22,8 +22,8 @@ Route::post('/transaction/create', [TransactionController::class, 'store'])->nam
 Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
 Route::put('/transaction/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
 Route::get('/transaction/destroy/{id}', [TransactionController::class, 'destroy'])->name('transaction.destroy');
-
 Route::get('/transaction/report', [TransactionController::class, 'report'])->name('transaction.report');
+Route::get('/yearly-report', [TransactionController::class, 'showYearlyReport'])->name('showYearlyReport');
 
 Route::get('/admin/bucket', [BucketController::class, 'index'])->name('bucket');
 Route::get('/admin/bucket/create', [BucketController::class, 'create'])->name('bucket.create');
