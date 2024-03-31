@@ -19,7 +19,7 @@
     </head>
 
 
-    <body>
+    <body style="display: flex; flex-direction: column; min-height: 100vh;">
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
