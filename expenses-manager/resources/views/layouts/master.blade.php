@@ -1,5 +1,5 @@
 @if (session('user')) 
-    @dump(session('user'))
+    {{-- @dump(session('user')) --}}
     <!DOCTYPE html>
     <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
