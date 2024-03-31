@@ -36,6 +36,9 @@
             <canvas id="pieChart"></canvas>
         </div>
     </div>
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+        <a class="btn btn-success" href="{{ route('index') }}"> Back</a>
+    </div>
 @endif
 
 <script>
