@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\Bucket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -50,14 +52,38 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-
     }
 
     public function report()
     {
-        return view('transaction.report');
+        return view('transaction.report', ['transactions' => Transaction::all()]);
     }
 
+    public function showYearInputForm()
+    {
+        return view('inputYear');
+    }
+
+    public function showYearlyReport(Request $request)
+    {
+        $year = $request->year;
+    
+        $transactions = Transaction::select(
+            DB::raw("(SELECT buckets.category FROM buckets WHERE transactions.ShopName LIKE concat('%', buckets.shopName, '%')) AS Category"), // Alias specified for the category column
+            DB::raw('SUM(transactions.MoneySpent) as TotalSpent')
+        )
+            ->leftJoin('buckets', function ($join) {
+                $join->on('transactions.ShopName', 'like', DB::raw("concat('%', buckets.shopName, '%')"));
+            })
+            ->whereRaw("substr(transactions.date, 1, 4) = ?", [$year]) // Assuming the date format is 'YYYY-MM-DD'
+            ->groupBy('Category') // Grouping by the alias
+            ->get();
+    
+        return view('transaction.report', [
+            'year' => $year,
+            'transactions' => $transactions
+        ]);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -86,7 +112,6 @@ class TransactionController extends Controller
         $transaction->save();
 
         return redirect()->route('index')->with('message', 'Transaction updated successfully.');
-
     }
 
     /**
@@ -96,7 +121,7 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::find($id);
         $transaction->delete();
-    
+
         return redirect()->route('index')->with('message', 'Transaction deleted successfully.');
     }
 
