@@ -20,12 +20,13 @@
 <body>
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
+        <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
+            <ul class="navbar-nav">
                 @if (session('user') && session('user')->isAdmin)
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('manageUsers') }}">Manage users</a>
@@ -34,8 +35,6 @@
                         <a class="nav-link" href="{{ route('bucket') }}">Manage Bucket</a>
                     </li>
                 @endif
-            </ul>
-            <ul class="navbar-nav">
                 <li class="nav-item">
                     {{-- <a class="nav-link" href="{{ route('logout') }}">Logout</a> --}}
                 </li>
@@ -45,13 +44,16 @@
 
 
 
-    <main>
+
+    <main style="flex-grow: 1;">
         @yield('content')
     </main>
 
-    <footer style="display: flex; justify-content: flex-start;">
-        <p style="margin-left: 2em; margin-right: 1em;"> Aric Or (A01337169) </p>
-        <p> Julie Oh (A01335411) </p>
+    <footer style="margin-top: auto;">
+        <div class="container">
+            <p> Aric Or (A01337169) </p>
+            <p> Julie Oh (A01335411) </p>
+        </div>
     </footer>
 </body>
 </html>
