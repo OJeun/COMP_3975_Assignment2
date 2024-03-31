@@ -33,5 +33,6 @@ Route::delete('/admin/bucket/destroy/{id}', [BucketController::class, 'destroy']
 
 Route::get('/admin/users', [UserController::class, 'manageUsers'])->name('manageUsers');
 Route::post('/admin/users', [UserController::class, 'update'])->name('updateUsers');
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('/insert-uncategorized-shops', 'App\Http\Controllers\UncategorizedShopController@insertUncategorizedShops');
