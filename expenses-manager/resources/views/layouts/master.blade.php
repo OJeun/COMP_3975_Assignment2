@@ -46,11 +46,9 @@
         @yield('content')
     </main>
 
-    <footer style="margin-top: auto;">
-        <div class="container">
-            <p> Aric Or (A01337169) </p>
-            <p> Julie Oh (A01335411) </p>
-        </div>
+    <footer style="display: flex; justify-content: flex-start;">
+        <p style="margin-left: 2em; margin-right: 1em;"> Aric Or (A01337169) </p>
+        <p> Julie Oh (A01335411) </p>
     </footer>
 </body>
 
